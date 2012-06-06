@@ -1,0 +1,177 @@
+<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Slide Setup</title>
+<link href="../css/style-less.css" rel="stylesheet" type="text/css" />
+<script src="../js/jquery.js" type="text/javascript"></script>
+<script src="../js/script.js" type="text/javascript"></script>
+</head>
+<body>
+	<div class="wrap"><!-- Wrapper starts-->
+	<div class="upper"><!-- Upper section starts -->
+		<div class="container">
+			<div class="page-title float-left">
+				change setup
+			</div>
+			<div class="tool-tip float-right">
+				<input type="image" id="delete" name="delete" src="../images/tooltipSpan.png"/>
+				<span>delete</span>
+			</div>
+		</div>
+	</div><!-- Upper section ends -->
+	<div class="clear"></div>
+	<div class="middle"><!-- Middle Section starts -->
+		<!-- form groups starts -->
+		<form method="post" action="#" spellcheck="true">
+			<div class="sub-container">
+				<input type="text" name="title" placeholder="Setup Name"/>
+				<input id="width" type="text" name="width" placeholder="4"/>
+				<input id="height" type="text" name="height" placeholder="4"/>
+				
+				<!--on and off switch starts-->
+				<fieldset class="switch">
+					<label class="off">Off<input type="radio" class="onOff" name="onOff" value="off" /></label>
+					<label class="on">On<input type="radio" class="onOff" name="onOff" value="on" /></label>
+				</fieldset>
+				<!--on and off switch ends-->
+				<div class="labels">
+					<label id="label-title">title</label>
+					<label id="label-width">width</label>
+					<label id="label-height">height</label>
+				</div>
+			</div>
+			
+			<div class="sub-container">
+			<fieldset class="bucket" id="installations">
+				<div>
+					<ol>
+						<li><label><input type="checkbox"/>HQ Side Screen</label></li>
+						<li><label><input type="checkbox"/>HQ March Madness</label></li>
+						<li><label><input type="checkbox"/>Zions Branch</label></li>
+						<li><label><input type="checkbox"/>17th Floor</label></li>
+						<li><label><input type="checkbox"/>HQ Side Screen</label></li>
+						<li><label><input type="checkbox"/>HQ March Madness</label></li>
+					</ol>
+				</div>
+			</fieldset>
+			
+			<fieldset class="bucket" id="groups">
+				<div>
+					<ol>
+						<li><label><input type="checkbox"/>Development</label></li>
+						<li><label><input type="checkbox"/>Test Group</label></li>
+						<li><label><input type="checkbox"/>Zions Bank Branches</label></li>
+						<li><label><input type="checkbox"/>Development</label></li>
+						<li><label><input type="checkbox"/>Test Group</label></li>
+						<li><label><input type="checkbox"/>Zions Bank Branches</label></li>
+					</ol>
+				</div>
+			</fieldset>
+			
+			<fieldset class="bucket" id="date">
+				<div class="labels date">
+					<ol>
+						<li><label>from<input type="text" id="start-date"></label></li>
+						<li><label>to<input type="text" id="end-date"></label></li>
+				</div>
+			</fieldset>
+			
+			<fieldset class="bucket" id="time">
+				<div class="labels time">
+					<ol>
+						<li><label>from<input type="text" id="start-time"></label></li>
+						<li><label>to<input type="text" id="end-time"></label></li>
+					</ol>
+				</div>
+			</fieldset>
+			
+			<div class="labels">
+				<label id="label-installations">installations</label>
+				<label id="label-groups">groups</label>
+				<label id="label-date"><input type="checkbox" id="date" name="date"/>date restriction</label>
+				<label id="label-time"><input type="checkbox" id="time" name="time"/>time restriction</label>
+			</div>
+			</div>
+			
+			<fieldset id="slides">
+				<div class="slide-wrapper">
+					<div class="float-left slide-left">
+						<div class="slide-left-top">
+							<div class="slide-content">cable</div>
+						</div>
+						<div class="slide-left-bottom">
+							<div class="slide-content">bond store</div>
+						</div>
+					</div>
+					<div class="float-right slide-right">
+						<div class="slide-content">bond store</div>
+					</div>
+				</div>
+				
+				<div class="slide-wrapper">
+					<div class="float-left slide-left">
+						<div class="slide-left-top">
+							<div class="slide-content">cable</div>
+						</div>
+						<div class="slide-left-bottom">
+							<div class="slide-content">bond store</div>
+						</div>
+					</div>
+					<div class="float-right slide-right">
+						<div class="slide-content">bond store</div>
+					</div>
+				</div>
+
+				<div class="slide-wrapper">
+					<div class="float-left slide-left">
+						<div class="slide-left-top">
+							<div class="slide-content">cable</div>
+						</div>
+						<div class="slide-left-bottom">
+							<div class="slide-content">bond store</div>
+						</div>
+					</div>
+					<div class="float-right slide-right">
+						<div class="slide-content">bond store</div>
+					</div>
+				</div>
+
+
+				<div class="slide-wrapper">
+					<div class="float-left slide-left">
+						<div class="slide-left-top">
+							<div class="slide-content">cable</div>
+						</div>
+						<div class="slide-left-bottom">
+							<div class="slide-content">bond store</div>
+						</div>
+					</div>
+					<div class="float-right slide-right">
+						<div class="slide-content">bond store</div>
+					</div>
+				</div>
+				
+				<div class="clear"></div>
+
+			</fieldset>
+			<label class="labels" id="label-slides">slides</label>
+			<input type="image" id="add" name="add-slide" src="../images/add-slide-icon.png"/>
+		</form>
+		<!-- form groups ends -->
+	</div><!-- Middle Section ends -->
+	
+	<div class="lower"><!-- Lower Section starts -->
+		<!-- Submit form-->
+		<div class="sub-container">
+			<div class="submit-container">
+				<input type="submit" class="submit float-left" id="submit" name="submit" value="save"/>
+				<div id="save-text" class="labels float-right">save and continue editing</div>
+			</div>
+		</div>
+	</div><!-- Lower Section ends -->
+	
+	</div><!-- Wrapper ends-->
+</body>
+</html>

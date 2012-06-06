@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css"/>
+</head>
+
+<style>
+	.drop { display:inline-block; width:500px; height:500px; border:1px solid silver; background-color:whitesmoke; padding:10px; }
+
+	.drag { display:inline-block; width:30px; height:30px; border:1px solid silver; background-color:white; }​
+</style>
+<body>
+	<div class="drop">
+    	<div class="drag" id="ele1"></div>
+    	<div class="drag"></div>
+    	<div class="drag"></div>
+    	<div class="drag"></div>
+   	    <div class="drag"></div>	
+	</div>
+
+<script>
+
+
+$(function(){
+		
+	var gridWidth;
+	var gridHeight;
+	$('.drop').droppable({
+   		tolerance: 'fit'
+	});
+	
+	gridWidth = $('.drop').width()/5;
+	gridHeight = $('.drop').height()/5
+	
+	// draggable in a grid
+	$('.drag').draggable({
+    	revert: 'invalid',
+    	stop: function(){
+        	$(this).draggable('option','revert','invalid');
+    	},
+    	grid: [gridWidth, gridHeight]
+	});
+	
+	$('.drag').droppable({
+    	greedy: true,
+    	tolerance: 'touch',
+    	drop: function(event,ui){
+        ui.draggable.draggable('option','revert',true);
+    	}
+	});
+	
+	$('.drag').resizable({
+		grid: [5,5],
+		containment: '.drop',
+		stop: function(){
+			check(this);
+			console.log(check(this));
+		}
+	});
+	
+	//enableResizable(drag);
+	//resizeable in a grid
+	/*
+	function enableResizable(elem){
+	$(elem).resizable({
+		grid: [gridWidth, gridHeight],
+		containment: '.drop';
+		});
+	}*/
+
+	function disableResizable(elem){
+		$(elem).resizable('destroy');
+	}
+	
+	
+});
+
+
+/*var overlaps = (function(){
+	
+	function getPositions(elem){
+		var pos, width, height;
+		pos = $( elem ).position();
+		width = $(elem).width();
+		height = $(elem).height();
+		return[[pos.left, pos.left+width],[pos.top, pos.top+height]];
+	}
+	
+	function comparePositions (p1, p2){
+		var r1, r2;
+		r1 = p1[0] < p2[1] ? p1 : p2;
+		r2 = p1[0] < p2[0] ? p2 : p1;
+		return r1[1] > r2[0] || r1[0] === r2[0];
+	}
+	
+	return function(a, b){
+		var pos1 = getPositions(a),
+			pos2 = getPositions(b);
+		return comparePositions(pos1[0], pos2[0]) && comparePositions(pos1[1], pos2[1]);
+	};
+})();
+
+$(function(){
+	var layer = $('.drag');
+	//console.log(overlaps(layer[0], layer[1]));
+	$('.drop').children().resize(function() {	
+		check(this);
+	});
+});
+
+var check = (function(box){
+    var overlap = {};
+    $('.drop').children().not(box).each(function(index){
+    	//console.log( index+1 + ' = ' + overlaps(box, this));
+    	
+    	overlap[index] = overlaps(box, this);
+    	if(jQuery.inArray('true', overlap)){
+    	console.log("true");
+    	return true;
+    	}
+    	else{return false};
+    	
+    	//return overlaps(box, this);
+    });
+    //console.log(overlap);
+});*/
+</script>
+
+	</body>
+
+</html>
