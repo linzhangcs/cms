@@ -247,7 +247,7 @@ $(document).ready(function(){
 		 		
 		 		if($(this).children().length === 0)
 		 		{	
-		 			var size = getElementSize();
+		 			var size = getElementSize("#grid-table");
 		 			var element = new SlideElement("Auction");
 		 				elemCounter ++; 
 		 			element.getType();

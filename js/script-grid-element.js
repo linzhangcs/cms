@@ -129,6 +129,7 @@ $(document).ready(function(){
 				
 			}
 			updateGrid();
+            updateGridElement(gridTable);
 			
 		}
 		// update the changes in Height input
@@ -175,10 +176,14 @@ $(document).ready(function(){
 				
 			}
 			updateGrid();
+			updateGridElement(gridTable);
 		}
 		
 		return;
 	};
+	
+	
+	
 	// helper function that adjust the grid cells
 	var updateGrid = function(){
 		var currentSize = getGridSize();			
@@ -187,9 +192,16 @@ $(document).ready(function(){
 		$('td').css({width: 100/currentSize[0]+'%'});
 	};
 	
-	var updateMoveGrid = function(){
-		
-	};
+	// helper function that adjust existing slide_element 
+	
+	var updateGridElement = function(table){
+	
+	   var elemSize = getElementSize(table);
+	   $('.slide-element').each(function(i){
+    	   $(this).css("width", elemSize[0]);
+    	   $(this).css("height", elemSize[1]);
+	   });
+    };
 	
 	$('input[name=width], input[name=height]').change(function(e) {
 		// disable submitting on press enter key
@@ -207,13 +219,17 @@ $(document).ready(function(){
 			var table = $('#grid-table');
 			// updating the grid
 			adjustGrid(table, deltaCol, deltaRow);
+			getElementSize(table);
 			//console.log(getGridSize());
 			
 	});
 	
-	var getElementSize = function(){
-		var gridHeight = $('#grid-table').height();
-		var gridWidth = $('#grid-table').width();
+	var getElementSize = function(table){
+		//var gridHeight = $('#grid-table').height();
+		//var gridWidth = $('#grid-table').width();
+		
+		var gridHeight = $(table).height();
+		var gridWidth = $(table).width();
 		
 		var input = getGridSize();
 		
@@ -232,7 +248,6 @@ $(document).ready(function(){
 	
 	// when the a td is click and it doesn't have an element inside, add a new element. 
 	 $("body").delegate("td", "click", function(){
-      	
       	var elemCounter = 0; 
 		var colIndex = $(this).parent().children().index($(this));
 		var rowIndex = $(this).parent().parent().children().index($(this).parent());
@@ -241,19 +256,29 @@ $(document).ready(function(){
 		
 		if($(this).children().length === 0)
 		{	
-			var size = getElementSize();
+			var size = getElementSize("#grid-table");
 			var element = new SlideElement("Auction");
 				elemCounter ++; 
 			element.getType();
 			var elemDiv = $("<div></div>").addClass("slide-element");
 			elemDiv.attr('id', "elem" + elemCounter);
+
 			//elemDiv.css({'width': size[0], 'height': size[1]});
-			elemDiv.css({'width':97 +'%', 'height': 98 +'%', 'opacity': 0.9});
+			elemDiv.css({'width': size[0] +'px', 'height': size[1] +'px', 'opacity': 0.9});
+			
 			$(this).append(elemDiv);
 		}
+		// Function that returns the size of the current grid element size
+		var gridElementSize = function(table){
+		      var elemSize = new Array();
+              var gridSize = getGridSize();
+              
+              elemSize[0]= $(table).width()/gridSize[0]; 
+		      elemSizes[1]= $(table).height()/gridSize[1];
+		      return elemSize;
+		};
 		
 		// Draggable & Resizable Starts
-		
 		//var size = getInpuGridSize();
 		var updateDragGrid = function (){
 			var size = getGridSize();
@@ -262,6 +287,7 @@ $(document).ready(function(){
 		
 			gridWidth = $('#slide-bg').width()/size[0];
 			gridHeight = $('#slide-bg').height()/size[1];
+			
 		};
 		
 		var size = getGridSize();
@@ -270,6 +296,7 @@ $(document).ready(function(){
 		
 			gridWidth = $('#slide-bg').width()/size[0];
 			gridHeight = $('#slide-bg').height()/size[1];
+			
 		$('#slide-bg').droppable({
    			tolerance: 'fit'
 		});
