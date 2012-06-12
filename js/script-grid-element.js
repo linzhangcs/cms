@@ -1,10 +1,29 @@
-// SlideElement
-function SlideElement(type){
+// SlideElementnm                                                                                                                                                                                                                          
+function SlideElement(type, xPos, yPos, width, height, container){
+	// Need position(x,y), size(width, height) for each element
+	
 	this.type = type;
+	this.xPos = xPos;
+	this.yPos = yPos;
+	this.width = width;
+	this.height = height;
+	this.container = container;
+	this.innerItems = "";
+	
+	switch(type)
+	{
+	   case "auction": 
+	       this.innerItems = "<select name=\"typeSelection\" id=\"typeSelection\"><option value=\"Auction\">Auction</option><option value=\"Blog\">Blog</option><option value=\"Bonds\">Bonds</option></select>";
+	       break;
+	   default:
+	       this.innterItems = "";
+	}
+
 }
 
 SlideElement.prototype.getType = function(){
 	console.log(this.type);
+	return this.type;
 };
 
 SlideElement.prototype.setType = function(newType){
@@ -12,6 +31,32 @@ SlideElement.prototype.setType = function(newType){
 	console.log("The type is set to " + this.type);
 };
 
+SlideElement.prototype.updatePos = function(newXPos, newYPos){
+    this.xPos = newXPos;
+    this.yPos = newYPos;
+    console.log("This element has updated its pos to xPos"+ this.xPos +" yPos " + this.yPos);
+};
+
+SlideElement.prototype.updateSize = function(newWidth, newHeight){
+    this.width = newWidth;
+    this.height = newHeight;
+    console.log("This element has updated its size to width"+ this.width +" height " + this.height);
+};
+
+SlideElement.prototype.updateContainer = function(newContainer){
+    this.container = newContainer;
+    console.log("This element has updated its container element to " + this.container);
+};
+
+SlideElement.prototype.toString = function(thisElement){
+    for(var property in thisElement)
+    {   
+        if ( typeof(thisElement[property]) !== "function")
+        {
+            console.log(property + " : " + thisElement[property]);
+        } 
+    }
+};
 $(document).ready(function(){
 	// disable when the switch is on off
 	$('.switch').css('background', 'url("../images/switchf.png")');
@@ -214,12 +259,13 @@ $(document).ready(function(){
 			var deltaCol = parseInt(inputSize[0]) - parseInt(currentSize[0]);
 			var deltaRow = parseInt(inputSize[1]) - parseInt(currentSize[1]);
 			console.log("input size: "+ deltaRow + deltaCol);
-			//adjustGrid();
 
 			var table = $('#grid-table');
+			
 			// updating the grid
 			adjustGrid(table, deltaCol, deltaRow);
 			getElementSize(table);
+			//updateauctionGrid();
 			//console.log(getGridSize());
 			
 	});
@@ -246,6 +292,7 @@ $(document).ready(function(){
 		}
 	};
 	
+	var totalElemCounter = 0;
 	// when the a td is click and it doesn't have an element inside, add a new element. 
 	 $("body").delegate("td", "click", function(){
       	var elemCounter = 0; 
@@ -257,11 +304,13 @@ $(document).ready(function(){
 		if($(this).children().length === 0)
 		{	
 			var size = getElementSize("#grid-table");
-			var element = new SlideElement("Auction");
+			var element = new SlideElement("auction", $(this).position().left, $(this).position().top, $(this).width(), $(this).height(), $(this).attr('id'));
 				elemCounter ++; 
+				totalElemCounter ++;
 			element.getType();
+			element.toString(element);
 			var elemDiv = $("<div></div>").addClass("slide-element");
-			elemDiv.attr('id', "elem" + elemCounter);
+			elemDiv.attr('id', "elem" + totalElemCounter);
 
 			//elemDiv.css({'width': size[0], 'height': size[1]});
 			elemDiv.css({'width': size[0] +'px', 'height': size[1] +'px', 'opacity': 0.9});
@@ -282,12 +331,12 @@ $(document).ready(function(){
 		//var size = getInpuGridSize();
 		var updateDragGrid = function (){
 			var size = getGridSize();
-			var gridWidth;
-			var gridHeight;
+			var moveSize = new Array();
 		
-			gridWidth = $('#slide-bg').width()/size[0];
-			gridHeight = $('#slide-bg').height()/size[1];
-			
+			moveSize.width = $('#slide-bg').width()/size[0];
+			moveSize.height = $('#slide-bg').height()/size[1];
+			console.log("The Draggable grid size: "+moveSize.width + ", " + moveSize.height);
+			return moveSize;
 		};
 		
 		var size = getGridSize();
@@ -300,7 +349,7 @@ $(document).ready(function(){
 		$('#slide-bg').droppable({
    			tolerance: 'fit'
 		});
-
+        var moveSize = updateDragGrid();
 		$('.slide-element').draggable({
 		containment: $('#slide-bg'),
     	revert: 'invalid',
@@ -322,8 +371,9 @@ $(document).ready(function(){
     		console.log('Final X: ' + finalxPos);
    			console.log('Final X: ' + finalyPos);
     	},
-    	grid: [gridWidth, gridHeight]
+    	//grid: [gridWidth, gridHeight]
     	
+    	grid: [moveSize.width, moveSize.height]
 	});
 	
 	$('.slide-element').droppable({
