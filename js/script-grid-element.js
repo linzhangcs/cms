@@ -307,10 +307,14 @@ $(document).ready(function(){
 			var element = new SlideElement("auction", $(this).position().left, $(this).position().top, $(this).width(), $(this).height(), $(this).attr('id'));
 				elemCounter ++; 
 				totalElemCounter ++;
-			element.getType();
 			element.toString(element);
+			
+			// This is where we add the div for this new slide element.
 			var elemDiv = $("<div></div>").addClass("slide-element");
 			elemDiv.attr('id', "elem" + totalElemCounter);
+			var items = element.innerItems;
+			elemDiv.html(items);
+			
 
 			//elemDiv.css({'width': size[0], 'height': size[1]});
 			elemDiv.css({'width': size[0] +'px', 'height': size[1] +'px', 'opacity': 0.9});
